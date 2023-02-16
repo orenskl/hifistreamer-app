@@ -1,0 +1,18 @@
+.Page-container {
+    height: 94vh;
+    overflow: hidden;
+}
+
+.Page-content {
+    width: 100%; 
+    display: block; 
+    margin: 0; 
+    height: 100%; 
+    border: 0;
+}
+
+.Page-text {
+    color: white;
+    font-weight: bold;
+    font-size: large;
+}
