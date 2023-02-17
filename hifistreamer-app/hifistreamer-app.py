@@ -9,7 +9,7 @@ class MainHandler(tornado.web.RequestHandler):
     def post(self):
         id = int(self.get_arguments("device")[0])
         environment = Environment(loader=FileSystemLoader("."))
-        template = environment.get_template("asound.in")
+        template = environment.get_template("./templates/asound.in")
         with open('/proc/asound/cards', 'r') as file:
             cards = file.readlines()
             index = 0

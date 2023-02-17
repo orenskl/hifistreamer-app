@@ -1,0 +1,2 @@
+include hifistreamer-app/templates/*
+include hifistreamer-app/www/*
