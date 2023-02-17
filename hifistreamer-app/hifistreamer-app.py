@@ -59,7 +59,7 @@ def make_app():
 
 async def main():
     app = make_app()
-    app.listen(6690)
+    app.listen(80)
     tornado.log.enable_pretty_logging()
     await asyncio.Event().wait()
 
