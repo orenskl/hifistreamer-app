@@ -1,6 +1,8 @@
+import argparse
 import asyncio
 import re
 from jinja2 import Environment, FileSystemLoader
+import pkg_resources
 
 import tornado.web
 import tornado.log
@@ -8,8 +10,9 @@ import tornado.log
 class MainHandler(tornado.web.RequestHandler):
     def post(self):
         id = int(self.get_arguments("device")[0])
-        environment = Environment(loader=FileSystemLoader("."))
-        template = environment.get_template("./templates/asound.in")
+        templates_path = pkg_resources.resource_filename('hifistreamer-app', 'templates')
+        environment = Environment(loader=FileSystemLoader(templates_path))
+        template = environment.get_template("asound.in")
         with open('/proc/asound/cards', 'r') as file:
             cards = file.readlines()
             index = 0
@@ -52,14 +55,18 @@ class MainHandler(tornado.web.RequestHandler):
         self.write(cards_json)
 
 def make_app():
+    www_path = pkg_resources.resource_filename('hifistreamer-app', 'www')
     return tornado.web.Application([
         (r"/audio", MainHandler),
-        (r'/(.*)',tornado.web.StaticFileHandler, {'path': './www','default_filename':'index.html'})
+        (r'/(.*)',tornado.web.StaticFileHandler, {'path': www_path,'default_filename':'index.html'})
     ])
 
 async def main():
+    parser = argparse.ArgumentParser(description='Port number')
+    parser.add_argument('--port', type=int, dest='port_num')
+    args = parser.parse_args()
     app = make_app()
-    app.listen(80)
+    app.listen(args.port_num)
     tornado.log.enable_pretty_logging()
     await asyncio.Event().wait()
 

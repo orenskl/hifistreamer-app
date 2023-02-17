@@ -1,5 +1,8 @@
 /venv
-/www
+www
 .DS_Store
 /*-info
 /build
+__pycache__
+/dist
+
