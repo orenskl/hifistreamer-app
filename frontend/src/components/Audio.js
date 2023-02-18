@@ -1,3 +1,5 @@
+import {getAPIurl} from './Config.js'
+
 import React, { Component } from 'react';
 
 import Form from 'react-bootstrap/Form';
@@ -19,7 +21,7 @@ class Audio extends Component {
     }
 
     getDeviceList() {
-        fetch("http://music:6690/audio")
+        fetch(getAPIurl() + "/audio")
         .then(response => response.json())
         .then(
           (result) => {
@@ -49,7 +51,7 @@ class Audio extends Component {
         const requestOptions = {
             method: 'POST',
         };       
-        fetch('http://music:6690/audio?device=' + this.state.selected, requestOptions)
+        fetch(getAPIurl() + "/audio?device=" + this.state.selected, requestOptions)
         .then(this.getDeviceList())
     }
 
