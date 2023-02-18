@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Tab from 'react-bootstrap/Tab';
 
 import Audio from './Audio';
+import About from './About';
 
 import '../css/Page.css';
 import "../css/NavLink.css"
@@ -20,7 +21,7 @@ function System(props) {
                             <Nav.Item>
                                 <Nav.Link eventKey="audio">Audio</Nav.Link>
                             </Nav.Item>
-                            <Nav.Item>
+{/*                             <Nav.Item>
                                 <Nav.Link eventKey="streaming">Streaming</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
@@ -28,7 +29,7 @@ function System(props) {
                             </Nav.Item>
                             <Nav.Item>
                                 <Nav.Link eventKey="network">Network</Nav.Link>
-                            </Nav.Item>
+                            </Nav.Item> */}
                             <Nav.Item>
                                 <Nav.Link eventKey="about">About</Nav.Link>
                             </Nav.Item>
@@ -39,7 +40,8 @@ function System(props) {
                             <Tab.Pane eventKey="audio">
                                 <Audio/>
                             </Tab.Pane>
-                            <Tab.Pane eventKey="streaming">
+                            <Tab.Pane eventKey="about">
+                                <About/>
                             </Tab.Pane>
                         </Tab.Content>
                     </Col>
