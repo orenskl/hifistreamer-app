@@ -11,9 +11,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3      
     - name: Run build
-      run: cd frontend ; npm install react ; npm run build
+      run: cd frontend ; npm install react ; npm run build ; cd ..
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          hifistreamer-app/www
+          hifistreamer-app
