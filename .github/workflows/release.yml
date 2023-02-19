@@ -1,0 +1,17 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+
+jobs:
+  release:
+    steps:
+      - name: Build
+        uses: ./.github/workflows/makefile.yml
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            frontend/www
