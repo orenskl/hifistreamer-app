@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Build
-        uses: ./.github/workflows/makefile.yml
+        uses: ./.github/workflows/build.yml
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
