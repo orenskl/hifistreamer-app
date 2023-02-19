@@ -5,4 +5,4 @@ www
 /build
 __pycache__
 /dist
-
+/*.tar.gz
