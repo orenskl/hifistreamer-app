@@ -1,12 +1,30 @@
 import argparse
 import asyncio
 import re
-from jinja2 import Environment, FileSystemLoader
 import pkg_resources
-import psutil
+import os
 
+import psutil
+from jinja2 import Environment, FileSystemLoader
 import tornado.web
 import tornado.log
+
+def create_ALSA_config(id):
+    templates_path = pkg_resources.resource_filename('hifistreamer-app', 'templates')
+    environment = Environment(loader=FileSystemLoader(templates_path))
+    template = environment.get_template("asound.in")
+    with open('/proc/asound/cards', 'r') as file:
+        cards = file.readlines()
+        index = 0
+        for line in cards:
+            if re.search(r'.*\: .*',line):
+                device_abbrev = re.split('\[|\]',line)[1].strip()
+                if index == id :
+                    content = template.render( device = device_abbrev )
+                    break
+                index += 1
+    with open('/storage/.config/asound.conf', 'w') as file:    
+        file.write(content)
 
 class AboutHandler(tornado.web.RequestHandler):
      def get(self):
@@ -31,22 +49,7 @@ class AboutHandler(tornado.web.RequestHandler):
 class AudioHandler(tornado.web.RequestHandler):
     def post(self):
         id = int(self.get_arguments("device")[0])
-        templates_path = pkg_resources.resource_filename('hifistreamer-app', 'templates')
-        environment = Environment(loader=FileSystemLoader(templates_path))
-        template = environment.get_template("asound.in")
-        with open('/proc/asound/cards', 'r') as file:
-            cards = file.readlines()
-            index = 0
-            for line in cards:
-                if re.search(r'.*\: .*',line):
-                    device_abbrev = re.split('\[|\]',line)[1].strip()
-                    print(id,index,device_abbrev)
-                    if index == id :
-                        content = template.render( device = device_abbrev )
-                        break
-                    index += 1
-        with open('/storage/.config/asound.conf', 'w') as file:    
-            file.write(content)
+        create_ALSA_config(id)
         self.add_header('Access-Control-Allow-Origin','*')
         self.write({})
 
@@ -75,6 +78,10 @@ class AudioHandler(tornado.web.RequestHandler):
         self.add_header('Access-Control-Allow-Origin','*')
         self.write(cards_json)
 
+def init_app():
+    if not os.path.isfile('/storage/.config/asound.conf'):
+        create_ALSA_config(0)
+
 def make_app():
     www_path = pkg_resources.resource_filename('hifistreamer-app', 'www')
     return tornado.web.Application([
@@ -84,6 +91,7 @@ def make_app():
     ])
 
 async def main():
+    init_app()
     parser = argparse.ArgumentParser(description='Port number')
     parser.add_argument('--port', type=int, dest='port_num', default=80)
     args = parser.parse_args()
