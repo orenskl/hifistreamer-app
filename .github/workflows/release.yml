@@ -16,4 +16,4 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          frontend/www
+          hifistreamer-app/www
