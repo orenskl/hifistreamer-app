@@ -1,5 +1,0 @@
-pcm.!default {
-  type hw
-  card {{ device }}
-  device 0
-}
