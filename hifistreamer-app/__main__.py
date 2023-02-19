@@ -5,14 +5,11 @@ import pkg_resources
 import os
 
 import psutil
-from jinja2 import Environment, FileSystemLoader
 import tornado.web
 import tornado.log
 
 def create_ALSA_config(id):
-    templates_path = pkg_resources.resource_filename('hifistreamer-app', 'templates')
-    environment = Environment(loader=FileSystemLoader(templates_path))
-    template = environment.get_template("asound.in")
+    asound_file = 'pcm.!default {\n    type hw\n    card __device__\n    device 0\n}\n'
     with open('/proc/asound/cards', 'r') as file:
         cards = file.readlines()
         index = 0
@@ -20,7 +17,7 @@ def create_ALSA_config(id):
             if re.search(r'.*\: .*',line):
                 device_abbrev = re.split('\[|\]',line)[1].strip()
                 if index == id :
-                    content = template.render( device = device_abbrev )
+                    content = asound_file.replace('__device__',device_abbrev)
                     break
                 index += 1
     with open('/storage/.config/asound.conf', 'w') as file:    
@@ -60,7 +57,7 @@ class AudioHandler(tornado.web.RequestHandler):
             lines = file.readlines()
             for line in lines:
                 if re.search(r'^\s+card\s+\w',line):
-                    current_device = line.split(' ')[3].strip()
+                    current_device = line.split()[1].strip()
         # Get all the devices
         with open('/proc/asound/cards', 'r') as file:
             cards = file.readlines()

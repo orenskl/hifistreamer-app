@@ -1,2 +1,1 @@
-include hifistreamer-app/templates/*
-include hifistreamer-app/www/*
+recursive-include hifistreamer-app/www/*
