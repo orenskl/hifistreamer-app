@@ -10,10 +10,12 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v3      
-    - name: Run build
+    - name: Build
       run: cd frontend ; npm install react ; npm run build ; cd ..
+    - name: Package
+      run: ./package.sh
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          hifistreamer-app/*
+          hifistreamer-app-*.tar.gz
