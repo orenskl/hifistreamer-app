@@ -1,3 +1,8 @@
+/**
+ * The About page file
+ * @author Oren Sokoler
+ */
+
 import {getAPIurl} from './Config.js'
 
 import Row from 'react-bootstrap/Row';
@@ -6,6 +11,9 @@ import { Container } from 'react-bootstrap';
 
 import React, { Component } from 'react';
 
+/**
+ * The about page, provides general information on the system
+ */
 class About extends Component {
 
     constructor(props) {

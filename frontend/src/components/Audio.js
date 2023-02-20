@@ -1,3 +1,8 @@
+/**
+ * The Audio page file
+ * @author Oren Sokoler
+ */
+
 import {getAPIurl} from './Config.js'
 
 import React, { Component } from 'react';
@@ -10,6 +15,9 @@ import Select from 'react-select'
 
 import '../css/Page.css'; 
 
+/**
+ * The Audio page, handles setting of the Audio sub-system
+ */
 class Audio extends Component {
 
     constructor(props) {

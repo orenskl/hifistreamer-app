@@ -1,3 +1,8 @@
+/**
+ * The system main page
+ * @author Oren Sokoler
+ */
+
 import React from 'react';
 
 import Col from 'react-bootstrap/Col';
@@ -11,7 +16,10 @@ import About from './About';
 import '../css/Page.css';
 import "../css/NavLink.css"
 
-function System(props) {
+/**
+ * The system tab pane - navigates between the system pages
+ */
+function System() {
     return (
         <div className='Page-container' style={{background:'#565e64'}}>
             <Tab.Container id="left-tabs" defaultActiveKey="audio">

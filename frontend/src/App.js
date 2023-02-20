@@ -1,3 +1,8 @@
+/**
+ * The application class
+ * @author Oren Sokoler
+ */
+
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 

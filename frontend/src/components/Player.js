@@ -1,9 +1,17 @@
+/**
+ * The player page
+ * @author Oren Sokoler
+ */
+
 import {getAPIurl} from './Config.js'
 
 import React from 'react';
 import '../css/Page.css';
 
-function Player(props) {
+/**
+ * Render the Mopidy-Iris player in an iframe
+ */
+function Player() {
     return (
         <div className='Page-container'>
           <iframe title='Mopidy-Iris' 

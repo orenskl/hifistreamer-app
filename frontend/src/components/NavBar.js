@@ -1,7 +1,15 @@
+/**
+ * The main page navigation bar
+ * @author Oren Sokoler
+ */
+
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
+/**
+ * The navigation bar component
+ */
 class NavBar extends Component {
 
     constructor(props) {

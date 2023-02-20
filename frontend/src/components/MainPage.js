@@ -1,9 +1,17 @@
+/**
+ * The main application page
+ * @author Oren Sokoler
+ */
+
 import React, { Component } from 'react';
 
 import NavBar from './NavBar';
 import Player from './Player';
 import System from './System';
 
+/**
+ * The Main page - includes two tabs, the Player and the System
+ */
 class MainPage extends Component {
 
     constructor(props) {
