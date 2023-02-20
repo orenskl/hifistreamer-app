@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Button } from 'react-bootstrap';
+import Select from 'react-select'
 
 import '../css/Page.css'; 
 
@@ -15,8 +16,9 @@ class Audio extends Component {
         super(props);
         this.state = {
             items : [],
+            current : {},
+            selected : {},
             isSaveDisabled : true,
-            selected : -1
         }
     }
 
@@ -25,24 +27,28 @@ class Audio extends Component {
         .then(response => response.json())
         .then(
           (result) => {
-            const current = result.devices.splice(result.current,result.current+1)
+            const options = result.devices.map(device => ({value : device.id, label : device.name}))
             this.setState({
-              items: current.concat(result.devices)
+              items: options,
+              current: options[result.current],
+              selected: options[result.current]
             });
           }
         )
+    }
+
+    componentDidUpdate() {
     }
     
     componentDidMount() {
         this.getDeviceList()
     }
 
-    onChangeDevice(event) {
-        console.log(event)
-        this.setState({ isSaveDisabled : true })
-        if (event.target.selectedIndex > 0) {
-            this.setState({ isSaveDisabled : false , 
-                            selected : this.state.items[event.target.selectedIndex].id})
+    onChangeDevice(option) {
+        this.setState({ isSaveDisabled : true,
+                        selected : this.state.items[option.value]})
+        if (option.value !== this.state.current.value) {
+            this.setState({ isSaveDisabled : false })
         }
     }
 
@@ -51,7 +57,7 @@ class Audio extends Component {
         const requestOptions = {
             method: 'POST',
         };       
-        fetch(getAPIurl() + "/audio?device=" + this.state.selected, requestOptions)
+        fetch(getAPIurl() + "/audio?device=" + this.state.selected.value, requestOptions)
         .then(this.getDeviceList())
     }
 
@@ -62,15 +68,16 @@ class Audio extends Component {
                     <Form.Label className="Page-text" column sm={2}>
                         Output device
                     </Form.Label>
-                    <Col sm={4}>
-                        <Form.Select type="device" 
-                                     placeholder="" 
-                                     onChange={this.onChangeDevice.bind(this)}>
-                            {
-                                this.state.items.map(device => <option key={device.id}>{device.name}</option>)
-                            }
-                        </Form.Select>
-                        <Button className="mt-4" 
+                    <Col sm={5}>
+                        <Select type="device" 
+                                className="basic-single"
+                                classNamePrefix="select"
+                                isClearable={false}
+                                onChange={this.onChangeDevice.bind(this)}
+                                value={this.state.selected}
+                                options={this.state.items}>
+                        </Select>
+                        <Button className="mt-4"
                                 variant="primary" 
                                 disabled={this.state.isSaveDisabled}
                                 onClick={this.onSaveClicked.bind(this)}>
