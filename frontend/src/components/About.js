@@ -47,7 +47,7 @@ class About extends Component {
         return (
             <Container className="Page-text">
                 <Row className="mt-4 ms-2">
-                    <Col sm={4}>
+                    <Col>
                         HiFiStreamer version {this.state.version}
                     </Col>
                 </Row>

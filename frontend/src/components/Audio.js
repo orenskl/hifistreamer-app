@@ -73,10 +73,10 @@ class Audio extends Component {
         return (
             <Form>
                 <Form.Group as={Row} className="mt-4 ms-4">
-                    <Form.Label className="Page-text" column sm={2}>
+                    <Form.Label className="Page-text" column md="auto">
                         Output device
                     </Form.Label>
-                    <Col sm={5}>
+                    <Col md="auto">
                         <Select type="device" 
                                 className="basic-single"
                                 classNamePrefix="select"
