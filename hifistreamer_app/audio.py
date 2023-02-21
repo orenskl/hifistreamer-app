@@ -7,7 +7,7 @@ import re
 import tornado.web
 import tornado.log
 
-from alsa import *
+from hifistreamer_app.alsa import alsa_create_config
 
 class AudioHandler(tornado.web.RequestHandler):
     """ Audio REST API handler
