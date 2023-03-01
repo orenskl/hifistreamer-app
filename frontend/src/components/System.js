@@ -15,6 +15,7 @@ import About from './About';
 
 import '../css/Page.css';
 import "../css/NavLink.css"
+import Streaming from './Streaming';
 
 /**
  * The system tab pane - navigates between the system pages
@@ -29,10 +30,10 @@ function System() {
                             <Nav.Item>
                                 <Nav.Link eventKey="audio">Audio</Nav.Link>
                             </Nav.Item>
-{/*                             <Nav.Item>
+                            <Nav.Item>
                                 <Nav.Link eventKey="streaming">Streaming</Nav.Link>
                             </Nav.Item>
-                            <Nav.Item>
+{/*                            <Nav.Item>
                                 <Nav.Link eventKey="shares">Shares</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
@@ -47,6 +48,9 @@ function System() {
                         <Tab.Content>
                             <Tab.Pane eventKey="audio">
                                 <Audio/>
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="streaming">
+                                <Streaming/>
                             </Tab.Pane>
                             <Tab.Pane eventKey="about">
                                 <About/>

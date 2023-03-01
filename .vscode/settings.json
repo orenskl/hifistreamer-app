@@ -3,6 +3,10 @@
         "alsa",
         "asound",
         "hifistreamer",
-        "psutil"
+        "levelname",
+        "mopidy",
+        "psutil",
+        "qrcode",
+        "tidalapi"
     ]
 }

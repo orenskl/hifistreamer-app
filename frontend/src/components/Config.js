@@ -10,8 +10,8 @@ export function getAPIurl() {
     if (process.env.NODE_ENV === 'production') {
         return "http://" + window.location.hostname
     }
-    else {
-        return "http://music"
+    else { 
+        return "http://" + process.env.REACT_APP_API_SERVER
     }        
 }
 
