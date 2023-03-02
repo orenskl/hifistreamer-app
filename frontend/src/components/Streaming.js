@@ -11,8 +11,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Collapse from 'react-bootstrap/Collapse';
-import { Button } from 'react-bootstrap';
-import {QRCodeSVG} from 'qrcode.react';
+import { QRCodeSVG } from 'qrcode.react';
 
 import '../css/Input.css';
 import '../css/Page.css';
@@ -29,10 +28,13 @@ class Streaming extends Component {
             isDisabled : false,
             isOpened : false,
             link : '',
-            timer : null
+            timer : null,
         }
     }
 
+    /**
+     * GET the TIDAL service status
+     */
     getStatus() {
         fetch(getAPIurl() + "/streaming")
         .then(response => response.json())
@@ -57,6 +59,9 @@ class Streaming extends Component {
         )
     }
 
+    /**
+     * Start the GET status polling
+     */
     startTimer() {
         if (this.state.timer === null) {
             this.setState({
@@ -65,6 +70,9 @@ class Streaming extends Component {
         }
     }
 
+    /**
+     * Stop the GET status polling
+     */
     stopTimer() {
         if (this.state.timer !== null) {
             clearInterval(this.state.timer)
@@ -82,10 +90,9 @@ class Streaming extends Component {
         this.stopTimer()
     }
 
-    componentDidUpdate() {
-        console.log(this.state)
-    }
-
+    /**
+     * Change the TIDAL service status, enable or disable
+     */
     onTIDALChange() {
         this.setState({ 
             TIDAL : !this.state.TIDAL,
@@ -123,8 +130,8 @@ class Streaming extends Component {
                                 <div style={{display: 'flex', justifyContent: 'center'}}>
                                     <p><QRCodeSVG value={this.state.link}/></p>
                                 </div>
-                                <p>Please scan the QR code with a mobile device or</p>
-                                <p>Press <Button variant="primary" size="sm">here</Button> to login to TIDAL</p>
+                                <p>Please scan the QR code with a mobile device or visit this link:<br/>
+                                <u>{'https://' + this.state.link}</u><br/> to login to TIDAL</p>
                             </div>
                         </Collapse>
                     </Col>
