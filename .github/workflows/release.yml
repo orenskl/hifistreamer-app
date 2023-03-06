@@ -13,7 +13,7 @@ jobs:
     - name: Build
       run: cd frontend ; npm install react ; npm run build ; cd ..
     - name: Package
-      run: ./package.sh
+      run: ./package.sh /tmp/
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
