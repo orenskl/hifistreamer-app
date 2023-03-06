@@ -3,6 +3,7 @@
         "alsa",
         "asound",
         "hifistreamer",
+        "httpclient",
         "levelname",
         "mopidy",
         "psutil",

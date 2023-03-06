@@ -18,6 +18,7 @@ from hifistreamer_app.streaming import StreamingHandler
 from hifistreamer_app.tidal import TIDAL
 from hifistreamer_app import __version__
 
+
 log = logging.getLogger(__name__)
 
 def make_app():
@@ -43,7 +44,7 @@ async def main():
         log.info('Creating default ALSA configuration')
         alsa_create_config(0)
     parser = argparse.ArgumentParser(description='Port number')
-    parser.add_argument('--port', type=int, dest='port_num', default=80)
+    parser.add_argument('--port', type=int, dest='port_num', default=6690)
     args = parser.parse_args()
     app = make_app()
     app.listen(args.port_num)
