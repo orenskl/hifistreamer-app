@@ -9,7 +9,15 @@ import tornado.web
 import tornado.log
 
 class AboutHandler(tornado.web.RequestHandler):
-     def get(self):
+
+    def sizeof_fmt(self, num, suffix="B"):
+        for unit in ["", "Ki", "Mi", "Gi", "Ti", "Pi", "Ei", "Zi"]:
+            if abs(num) < 1024.0:
+                return f"{num:3.1f}{unit}{suffix}"
+            num /= 1024.0
+        return f"{num:.1f}Yi{suffix}"
+
+    def get(self):
         about_json = {}
         with open('/etc/release', 'r') as file:
             about_json['version'] = file.read().split('-')[1]
@@ -18,9 +26,9 @@ class AboutHandler(tornado.web.RequestHandler):
             for line in lines:
                 if re.search(r'^model name',line):
                     about_json['processor'] = line.split(':')[1].strip()
-        about_json['memory'] = str(round(psutil.virtual_memory().total / (1024 * 1024 * 1024),1)) + " GB"
-        disk_total = str(round(psutil.disk_usage('/storage').total / (1024 * 1024 * 1024),1)) + " GB"
-        disk_free = str(round(psutil.disk_usage('/storage').free / (1024 * 1024 * 1024),1)) + " GB"
+        about_json['memory'] = self.sizeof_fmt(psutil.virtual_memory().total)
+        disk_total = self.sizeof_fmt(psutil.disk_usage('/storage').total)
+        disk_free = self.sizeof_fmt(psutil.disk_usage('/storage').free)
         about_json['disk'] = disk_total + " (" + disk_free + " Free)"
         with open('/proc/version', 'r') as file:
             content = file.read().split(' ')
