@@ -14,15 +14,29 @@ class TIDAL():
     """ TIDAL services class
     """
 
-    _MOPIDY_CONF_PATH = '/storage/.config/mopidy/mopidy.conf'
-    _TIDAL_OAUTH_FILE = 'tidal-oauth.json'
-    _TIDAL_OAUTH_DIR  = '/storage/.mopidy/tidal/'
+    _MOPIDY_CONF_PATH  = '/storage/.config/mopidy/mopidy.conf'
+    _NETWORK_CONF_PATH = '/storage/.cache/hifistreamer/network_wait'
+
+    _TIDAL_OAUTH_FILE  = 'tidal-oauth.json'
+    _TIDAL_OAUTH_DIR   = '/storage/.mopidy/tidal/'
 
     def __init__(self):
         self.future = None
         self.session = None
 
+    def _set_wait_for_network(self, wait_flag):
+        """ Set the wait for network on boot flag
+
+        Args:
+            wait_flag (bool): If True the system will wait for network on boot
+        """
+        with open(self._NETWORK_CONF_PATH, 'w') as file:
+            if wait_flag:
+                file.write('WAIT_NETWORK_TIME="30"\n')
+        
     def _restart(self):
+        """ Restart Mopidy service
+        """
         log.info("Restarting Mopidy")
         os.system('systemctl restart mopidy.service')
 
@@ -30,7 +44,7 @@ class TIDAL():
         """ Enable or disable TIDAL in mopidy
 
         Args:
-            enable_flag (str): If True enable TIDAL
+            enable_flag (bool): If True enable TIDAL
         """
         current = self.is_enabled()
         value = 'false'
@@ -45,6 +59,7 @@ class TIDAL():
             config.write(file)
         log.info('current = %r, enable_flag = %r',current,enable_flag)
         if current != enable_flag:
+            self._set_wait_for_network(enable_flag)
             self._restart()
 
     def enable(self):
