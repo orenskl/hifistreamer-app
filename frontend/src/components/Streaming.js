@@ -13,7 +13,6 @@ import Col from 'react-bootstrap/Col';
 import Collapse from 'react-bootstrap/Collapse';
 import { QRCodeSVG } from 'qrcode.react';
 
-import '../css/Input.css';
 import '../css/Page.css';
 
 /**
@@ -117,24 +116,28 @@ class Streaming extends Component {
         return (
             <Form className="Page-text" >
                 <Form.Group as={Row} className="mt-4 ms-4">
-                    <Col md="auto">
+                    <Col sm={3}>
+                        TIDAL
+                    </Col>
+                    <Col>
                         <Form.Check type="switch" 
                                     id="tidal-switch" 
-                                    label="TIDAL" reverse
                                     checked={this.state.TIDAL}
                                     disabled={this.state.isDisabled}
                                     onChange={this.onTIDALChange.bind(this)}>
                         </Form.Check>
-                        <Collapse in={this.state.isOpened}>
-                            <div id="collapse-div" style={{width: '15em'}}>
-                                <div style={{display: 'flex', justifyContent: 'center'}}>
-                                    <p><QRCodeSVG value={this.state.link}/></p>
-                                </div>
-                                <p>Please scan the QR code with a mobile device or visit this link:<br/>
-                                <u>{'https://' + this.state.link}</u><br/> to login to TIDAL</p>
-                            </div>
-                        </Collapse>
                     </Col>
+                    <Row className="mt-2">
+                        <Collapse in={this.state.isOpened}>
+                                <div id="collapse-div" style={{width: '18em'}}>
+                                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                                        <p><QRCodeSVG value={this.state.link}/></p>
+                                    </div>
+                                    <p>Please scan the QR code with a mobile device or visit this link:<br/>
+                                    <u>{'https://' + this.state.link}</u><br/> to login to TIDAL</p>
+                                </div>
+                        </Collapse>                    
+                    </Row>
                 </Form.Group>
             </Form>
         );
