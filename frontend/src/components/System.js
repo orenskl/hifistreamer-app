@@ -11,11 +11,12 @@ import Row from 'react-bootstrap/Row';
 import Tab from 'react-bootstrap/Tab';
 
 import Audio from './Audio';
+import Streaming from './Streaming';
+import Network from './Network';
 import About from './About';
 
 import '../css/Page.css';
 import "../css/NavLink.css"
-import Streaming from './Streaming';
 
 /**
  * The system tab pane - navigates between the system pages
@@ -35,10 +36,10 @@ function System() {
                             </Nav.Item>
 {/*                            <Nav.Item>
                                 <Nav.Link eventKey="shares">Shares</Nav.Link>
-                            </Nav.Item>
+                            </Nav.Item> */}
                             <Nav.Item>
                                 <Nav.Link eventKey="network">Network</Nav.Link>
-                            </Nav.Item> */}
+                            </Nav.Item>
                             <Nav.Item>
                                 <Nav.Link eventKey="about">About</Nav.Link>
                             </Nav.Item>
@@ -51,6 +52,9 @@ function System() {
                             </Tab.Pane>
                             <Tab.Pane eventKey="streaming">
                                 <Streaming/>
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="network">
+                                <Network/>
                             </Tab.Pane>
                             <Tab.Pane eventKey="about">
                                 <About/>

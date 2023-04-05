@@ -2,12 +2,15 @@
     "cSpell.words": [
         "alsa",
         "asound",
+        "gethostname",
         "hifistreamer",
         "httpclient",
         "levelname",
         "mopidy",
         "psutil",
+        "pyconnman",
         "qrcode",
+        "sethostname",
         "tidalapi"
     ]
 }

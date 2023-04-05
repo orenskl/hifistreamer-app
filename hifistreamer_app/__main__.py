@@ -15,6 +15,7 @@ from hifistreamer_app.alsa import alsa_create_config
 from hifistreamer_app.audio import AudioHandler
 from hifistreamer_app.about import AboutHandler
 from hifistreamer_app.streaming import StreamingHandler
+from hifistreamer_app.network import NetworkHandler
 from hifistreamer_app.tidal import TIDAL
 from hifistreamer_app import __version__
 
@@ -32,6 +33,7 @@ def make_app():
         (r"/audio", AudioHandler),
         (r"/about", AboutHandler),
         (r"/streaming", StreamingHandler, dict(tidal=TIDAL())),
+        (r"/network",NetworkHandler),
         (r'/(.*)',tornado.web.StaticFileHandler, {'path': www_path,'default_filename':'index.html'})
     ])
 
