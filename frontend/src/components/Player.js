@@ -15,7 +15,7 @@ function Player() {
     return (
         <div className='Page-container'>
           <iframe title='Mopidy-Iris' 
-                  src={getAPIurl() + '/iris/'}
+                  src={getAPIurl() + '/iris/?ui={"initial_setup_complete":true}'}
                   className='Page-content'/>
         </div>
     );
