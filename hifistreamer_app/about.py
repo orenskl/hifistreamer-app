@@ -3,6 +3,7 @@
 """
 
 import re
+import subprocess
 
 import psutil
 import tornado.web
@@ -21,11 +22,12 @@ class AboutHandler(tornado.web.RequestHandler):
         about_json = {}
         with open('/etc/release', 'r') as file:
             about_json['version'] = file.read().split('-')[1]
-        with open('/proc/cpuinfo', 'r') as file:
-            lines = file.readlines()
-            for line in lines:
-                if re.search(r'^model name',line):
-                    about_json['processor'] = line.split(':')[1].strip()
+        result = subprocess.run(['lscpu'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        output = result.stdout
+        lines = output.strip().split('\n')
+        for line in lines:
+            if re.search(r'Model name',line):
+                about_json['processor'] = line.split(':')[1].strip()
         about_json['memory'] = self.sizeof_fmt(psutil.virtual_memory().total)
         disk_total = self.sizeof_fmt(psutil.disk_usage('/storage').total)
         disk_free = self.sizeof_fmt(psutil.disk_usage('/storage').free)
