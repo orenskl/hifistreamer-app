@@ -11,6 +11,7 @@ def alsa_create_config(id):
         id (int): The default ALSA device number (as listed in /proc/asound/cards)
     """
     asound_file = 'pcm.!default {\n    type hw\n    card __device__\n    device 0\n}\n'
+    content = ''
     with open('/proc/asound/cards', 'r') as file:
         cards = file.readlines()
         index = 0
