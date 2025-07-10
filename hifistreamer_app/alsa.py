@@ -10,17 +10,18 @@ def alsa_create_config(id):
     Args:
         id (int): The default ALSA device number (as listed in /proc/asound/cards)
     """
-    asound_file = 'pcm.!default {\n    type hw\n    card __device__\n    device 0\n}\n'
-    content = ''
-    with open('/proc/asound/cards', 'r') as file:
-        cards = file.readlines()
-        index = 0
-        for line in cards:
-            if re.search(r'.*\: .*',line):
-                device_abbrev = re.split('\[|\]',line)[1].strip()
-                if index == id :
-                    content = asound_file.replace('__device__',device_abbrev)
-                    break
-                index += 1
+    asound_file = '''
+    pcm.!default {
+    type dmix
+    ipc_key 1024
+    slave {
+        pcm "hw:__device__,0"
+        rate 44100
+        channels 2
+        format S16_LE
+        }
+    }
+    '''
+    content = asound_file.replace('__device__',id)
     with open('/storage/.config/asound.conf', 'w') as file:    
         file.write(content)
