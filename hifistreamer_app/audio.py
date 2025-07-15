@@ -32,8 +32,9 @@ class AudioHandler(tornado.web.RequestHandler):
         with open("/storage/.config/asound.conf", 'r') as file:
             lines = file.readlines()
             for line in lines:
-                if re.search(r'^\s+card\s+\w',line):
-                    current_device = line.split()[1].strip()
+                match = re.search(r'hw:(\d+),', line)
+                if match:   
+                    current_device = match.group(1)
         # Get all the devices
         with open('/proc/asound/cards', 'r') as file:
             cards = file.readlines()
@@ -42,11 +43,8 @@ class AudioHandler(tornado.web.RequestHandler):
                 if re.search(r'.*\: .*',line):
                     device_name = line.split(':')[1].strip()
                     cards_json['devices'].append({"id" : index, "name" : device_name})
-                    device_abbrev = re.split('\[|\]',line)[1].strip()
-                    if device_abbrev == current_device:
-                        current = index
                     index += 1
-            cards_json['current'] = current
+            cards_json['current'] = current_device
             
         self.add_header('Access-Control-Allow-Origin','*')
         self.write(cards_json)

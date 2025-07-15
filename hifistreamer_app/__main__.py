@@ -11,7 +11,7 @@ import logging
 import tornado.web
 import tornado.log
 
-from hifistreamer_app.alsa import alsa_create_config
+from hifistreamer_app.alsa import *
 from hifistreamer_app.audio import AudioHandler
 from hifistreamer_app.about import AboutHandler
 from hifistreamer_app.streaming import StreamingHandler
@@ -42,7 +42,7 @@ async def main():
     """
     logging.basicConfig(filename='/var/log/hifistreamer-app.log', level=logging.DEBUG, format='%(asctime)s %(name)s %(levelname)s %(message)s')
     log.info('hifistreamer-app version ' + __version__)
-    if not os.path.isfile('/storage/.config/asound.conf'):
+    if not alsa_is_config_file_exists():
         log.info('Creating default ALSA configuration')
         alsa_create_config(0)
     parser = argparse.ArgumentParser(description='Port number')
