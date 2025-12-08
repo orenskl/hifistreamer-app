@@ -6,7 +6,7 @@ import logging
 import tornado.web
 import tornado.log
 
-log = logging.getLogger(__name__)
+log = logging.getLogger('streaming')
 
 class StreamingHandler(tornado.web.RequestHandler):
     """ Streaming REST API handler

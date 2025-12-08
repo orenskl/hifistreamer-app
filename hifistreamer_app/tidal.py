@@ -8,7 +8,7 @@ import configparser
 import os
 import tidalapi
 
-log = logging.getLogger(__name__)
+log = logging.getLogger('tidal')
 
 class TIDAL():
     """ TIDAL services class

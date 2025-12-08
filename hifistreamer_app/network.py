@@ -10,7 +10,7 @@ import tornado.log
 import dbus
 import pyconnman
 
-log = logging.getLogger(__name__)
+log = logging.getLogger('network')
 
 class NetworkHandler(tornado.web.RequestHandler):
     """ Network REST API handler
