@@ -62,6 +62,16 @@ class About extends Component {
         this.stopTimer()
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.isActive !== this.props.isActive) {
+            if (this.props.isActive) {
+                this.startTimer();
+            } else {
+                this.stopTimer();
+            }
+        }
+    }
+
     getInfo() {
         fetch(getAPIurl() + "/about")
         .then(response => response.json())
@@ -77,7 +87,6 @@ class About extends Component {
             });
           }
         )  
-        this.startTimer()      
     }
 
     render() {
