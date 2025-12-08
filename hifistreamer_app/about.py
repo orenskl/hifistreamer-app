@@ -32,6 +32,7 @@ class AboutHandler(tornado.web.RequestHandler):
         disk_total = self.sizeof_fmt(psutil.disk_usage('/storage').total)
         disk_free = self.sizeof_fmt(psutil.disk_usage('/storage').free)
         about_json['disk'] = disk_total + " (" + disk_free + " Free)"
+        about_json['cpu'] = int(psutil.cpu_percent())
         with open('/proc/version', 'r') as file:
             content = file.read().split(' ')
             about_json['kernel'] = content[0] + ' ' + content[1] + ' ' + content[2]

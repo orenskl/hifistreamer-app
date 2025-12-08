@@ -1,0 +1,19 @@
+.transparent-progress {
+    border: 2px solid #ffffff;   /* border color you want */
+    background-color: transparent !important; /* outer bar background */
+}
+
+.progress-center-overlay {
+    position: relative;
+}
+
+.progress-center-overlay .center-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    pointer-events: none; /* allows clicks to pass through */
+    color: #ffffff; /* text color */
+    font-size: 0.8rem; /* make font smaller */
+}

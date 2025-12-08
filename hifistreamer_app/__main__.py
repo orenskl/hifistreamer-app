@@ -40,7 +40,7 @@ def make_app():
 async def main():
     """ Main entry point
     """
-    logging.basicConfig(filename='/var/log/hifistreamer-app.log', level=logging.DEBUG, format='%(asctime)s %(name)s %(levelname)s %(message)s')
+    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(name)s %(levelname)s %(message)s')
     log.info('hifistreamer-app version ' + __version__)
     if not alsa_is_config_file_exists():
         log.info('Creating default ALSA configuration')

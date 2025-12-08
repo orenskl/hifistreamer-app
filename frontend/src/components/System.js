@@ -22,9 +22,10 @@ import "../css/NavLink.css"
  * The system tab pane - navigates between the system pages
  */
 function System() {
+    const [activeKey, setActiveKey] = React.useState('audio');
     return (
         <div className='Page-container' style={{background:'#565e64'}}>
-            <Tab.Container id="left-tabs" defaultActiveKey="audio">
+            <Tab.Container id="left-tabs" activeKey={activeKey} onSelect={setActiveKey}>
                 <Row>
                     <Col sm={2}>
                         <Nav variant="pills" className="flex-column">
@@ -57,7 +58,7 @@ function System() {
                                 <Network/>
                             </Tab.Pane>
                             <Tab.Pane eventKey="about">
-                                <About/>
+                                <About isActive={activeKey === 'about'}/>
                             </Tab.Pane>
                         </Tab.Content>
                     </Col>
